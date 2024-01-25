@@ -1,7 +1,7 @@
 import datetime
 import time
-import sys
 import os
+import argparse
 
 
 def read_file(filename):
@@ -15,7 +15,10 @@ def read_file(filename):
                 break
 def main():
     begin = datetime.datetime.now()
-    files = [os.path.join(root, file) for root, dirs, files in os.walk(sys.argv[1]) for file in files]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('dir', type=str)
+    args = parser.parse_args()
+    files = [os.path.join(root, file) for root, dirs, files in os.walk(args.dir) for file in files]
     for name in files:
         read_file(name)
     print(datetime.datetime.now() - begin)
